@@ -1,10 +1,10 @@
 import { range, values, applyTo } from 'ramda'
 import { Image, Audio } from './src/constants'
 import * as preloads from './src/preload/preload'
+import * as creators from './src/create/create'
 
 const onStart = () => {
   // global state
-  var player
   var platforms
   var cursors
 
@@ -19,6 +19,8 @@ const onStart = () => {
   const preload = () => {
     values(preloads).forEach(applyTo(game))
   }
+
+  let parts = {}
 
   function create () {
     game.physics.startSystem(Phaser.Physics.ARCADE)
@@ -37,14 +39,10 @@ const onStart = () => {
     const ledge2 = platforms.create(-150, 250, Image.ground)
     ledge2.body.immovable = true
 
-    player = game.add.sprite(32, game.world.height - 150, Image.dude)
-    game.physics.arcade.enable(player)
-    player.body.bounce.y = 0.2
-    player.body.gravity.y = 300
-    player.body.collideWorldBounds = true
+    console.log('WILL RUN CREATORS')
+    parts = values(creators).reduce((acc, creator) => Object.assign(acc, creator(game)), parts)
 
-    player.animations.add('left', [0, 1, 2, 3], 10, true)
-    player.animations.add('right', [5, 6, 7, 8], 10, true)
+    console.log('CREATORS DONE', parts)
 
     stars = game.add.group()
     stars.enableBody = true
@@ -68,6 +66,7 @@ const onStart = () => {
   }
 
   function update () {
+    const { player } = parts
     game.physics.arcade.collide(player, platforms)
     game.physics.arcade.collide(stars, platforms)
 
