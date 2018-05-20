@@ -1,16 +1,8 @@
-// Here is the starting point for your application code.
-// All stuff below is just to show you how it works. You can delete all of it.
-
 import os from 'os'
 import { remote } from 'electron'
 import jetpack from 'fs-jetpack'
 import { greet } from './hello_world/hello_world'
 import env from './env'
-
-const { app } = remote
-const appDir = jetpack.cwd(app.getAppPath())
-
-console.log('The author of this app is:', appDir.read('package.json', 'json').author)
 
 const onStart = () => {
 

@@ -1,21 +1,11 @@
-# Electron boilerplate + Phaser tutorial
+# Multiverse NoGame
 
-This repository is a merge of two different repositories :
+An game experiment made with PhaserJS and Electron.
+Started from `electron-phaser` boilerplate generator.
 
-- [electron-boilerplate](https://github.com/szwacz/electron-boilerplate.git)
-- Phaser html5 game library [making your first game tutorial](http://phaser.io/tutorials/making-your-first-phaser-game)
+# Usage
 
- ```
-git clone https://github.com/Fax/electron-phaser
-cd electron-phaser
-npm install
-npm start
+```bash
+yarn install
+yarn start
 ```
-
-# Usages
-
-Follow the README on the repository https://github.com/szwacz/electron-boilerplate.git. 
-
-# License
-
-MIT License
