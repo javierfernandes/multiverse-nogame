@@ -2,3 +2,4 @@
 
 export * from './collisions'
 export * from './keyboard'
+export * from './moveLedges'

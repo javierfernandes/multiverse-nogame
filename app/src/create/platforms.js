@@ -1,8 +1,11 @@
 import { Image } from '../constants'
 
-const createLedge = (w, h, p) => {
-  const ledge = p.create(w, h, Image.ground)
+const createLedge = (x, y, p, game) => {
+  const ledge = p.create(x, y, Image.ground)
   ledge.body.immovable = true
+  ledge.body.velocity.x = 200
+  ledge.body.gravity.x = 0
+  return ledge
 }
 
 export const platforms = game => {
@@ -13,8 +16,9 @@ export const platforms = game => {
   ground.scale.setTo(2, 2)
   ground.body.immovable = true
 
-  createLedge(400, 400, p)
-  createLedge(-150, 250, p)
-
-  return { platforms: p }
+  return {
+    platforms: p,
+    ledge1: createLedge(400, 455, p, game),
+    ledge2: createLedge(-150, 375, p, game)
+  }
 }

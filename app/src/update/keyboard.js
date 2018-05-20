@@ -15,6 +15,6 @@ export const updateKeyboard = ({ player, cursors, jumpSound }) => {
 
   if (cursors.up.isDown && player.body.touching.down) {
     jumpSound.play()
-    player.body.velocity.y = -350
+    player.body.velocity.y = -225
   }
 }
