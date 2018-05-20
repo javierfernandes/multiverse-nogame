@@ -11,5 +11,8 @@ export const Image = {
   ground: 'ground',
   star: 'star',
   dude: 'dude',
-  ledge: 'ledge'
+  ledge: 'ledge',
+
+  //
+  eskimo: 'eskimo'
 }

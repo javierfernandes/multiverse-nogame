@@ -7,4 +7,6 @@ export const images = game => {
   game.load.image(Image.ledge, 'assets/ledge.png')
 
   game.load.spritesheet(Image.dude, 'assets/dude.png', 32, 48)
+
+  game.load.spritesheet(Image.eskimo, 'assets/images/eskimo.png', 16, 24)
 }
