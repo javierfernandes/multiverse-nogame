@@ -1,3 +1,4 @@
+import { range } from 'ramda'
 
 const onStart = () => {
   const preload = () => {
@@ -27,10 +28,10 @@ const onStart = () => {
     ground.scale.setTo(2, 2)
     ground.body.immovable = true
 
-    var ledge = platforms.create(400, 400, 'ground')
-    ledge.body.immovable = true
-    ledge = platforms.create(-150, 250, 'ground')
-    ledge.body.immovable = true
+    const ledge1 = platforms.create(400, 400, 'ground')
+    ledge1.body.immovable = true
+    const ledge2 = platforms.create(-150, 250, 'ground')
+    ledge2.body.immovable = true
 
     player = game.add.sprite(32, game.world.height - 150, 'dude')
     game.physics.arcade.enable(player)
@@ -45,11 +46,11 @@ const onStart = () => {
     stars.enableBody = true
 
     //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 0; i < 12; i++) {
+    range(0, 12).forEach(i => {
       const star = stars.create(i * 70, 0, 'star')
       star.body.gravity.y = 300
       star.body.bounce.y = 0.7 + Math.random() * 0.2
-    }
+    })
 
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' })
 
