@@ -2,7 +2,8 @@
 export const Audio = {
   background: 'background',
   jump: 'jump',
-  collectStar: 'collectStar'
+  collectStar: 'collectStar',
+  stageClear: 'stageClear'
 }
 
 export const Image = {

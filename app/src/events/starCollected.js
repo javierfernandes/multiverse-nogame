@@ -1,13 +1,18 @@
 
 export const starCollected = (getParts, getState) => (player, star) => {
-  const { collectStarSound, scoreText } = getParts()
+  const { collectStarSound, stageClearSound, scoreText } = getParts()
+  const state = getState()
 
-  collectStarSound.play()
+  if (state.collectedStars === 11) {
+    stageClearSound.play()
+  } else {
+    collectStarSound.play()
+  }
 
   star.kill()
 
   // TODO: design an immutable solution
-  const state = getState()
   state.score += 10
+  state.collectedStars += 1
   scoreText.text = `Score: ${state.score}`
 }

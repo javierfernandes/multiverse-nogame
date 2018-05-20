@@ -9,7 +9,8 @@ const flippedApply = flip(apply)
 const onStart = () => {
   let parts = {}
   const state = {
-    score: 0
+    score: 0,
+    collectedStars: 0
   }
   const getParts = () => parts
   const getState = () => state
