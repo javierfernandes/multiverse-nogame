@@ -10,5 +10,6 @@ export const Image = {
   sky: 'sky',
   ground: 'ground',
   star: 'star',
-  dude: 'dude'
+  dude: 'dude',
+  ledge: 'ledge'
 }

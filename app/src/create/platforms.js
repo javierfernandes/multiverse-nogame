@@ -1,7 +1,8 @@
 import { Image } from '../constants'
 
 const createLedge = (x, y, p, game) => {
-  const ledge = p.create(x, y, Image.ground)
+  const ledge = p.create(x, y, Image.ledge)
+  ledge.scale.setTo(0.5, 0.5)
   ledge.body.immovable = true
   ledge.body.velocity.x = 200
   ledge.body.gravity.x = 0
