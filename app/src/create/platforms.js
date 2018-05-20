@@ -1,5 +1,10 @@
 import { Image } from '../constants'
 
+const createLedge = (w, h, p) => {
+  const ledge = p.create(w, h, Image.ground)
+  ledge.body.immovable = true
+}
+
 export const platforms = game => {
   const p = game.add.group()
   p.enableBody = true
@@ -8,10 +13,8 @@ export const platforms = game => {
   ground.scale.setTo(2, 2)
   ground.body.immovable = true
 
-  const ledge1 = p.create(400, 400, Image.ground)
-  ledge1.body.immovable = true
-  const ledge2 = p.create(-150, 250, Image.ground)
-  ledge2.body.immovable = true
+  createLedge(400, 400, p)
+  createLedge(-150, 250, p)
 
   return { platforms: p }
 }
