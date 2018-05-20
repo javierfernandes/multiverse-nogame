@@ -7,6 +7,5 @@ const gulp = require('gulp')
 gulp.task('start', ['build', 'watch'], () => {
   childProcess.spawn(electron, ['./build'], {
     stdio: 'inherit'
-  })
-  .on('close', () => { process.exit() })
+  }).on('close', () => { process.exit() })
 })

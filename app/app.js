@@ -5,7 +5,6 @@ import * as creators from './src/create/create'
 
 const onStart = () => {
   // global state
-  var platforms
   var cursors
 
   var stars
@@ -27,22 +26,7 @@ const onStart = () => {
 
     game.add.sprite(0, 0, Image.sky)
 
-    platforms = game.add.group()
-    platforms.enableBody = true
-
-    const ground = platforms.create(0, game.world.height - 64, Image.ground)
-    ground.scale.setTo(2, 2)
-    ground.body.immovable = true
-
-    const ledge1 = platforms.create(400, 400, Image.ground)
-    ledge1.body.immovable = true
-    const ledge2 = platforms.create(-150, 250, Image.ground)
-    ledge2.body.immovable = true
-
-    console.log('WILL RUN CREATORS')
     parts = values(creators).reduce((acc, creator) => Object.assign(acc, creator(game)), parts)
-
-    console.log('CREATORS DONE', parts)
 
     stars = game.add.group()
     stars.enableBody = true
@@ -66,7 +50,7 @@ const onStart = () => {
   }
 
   function update () {
-    const { player } = parts
+    const { player, platforms } = parts
     game.physics.arcade.collide(player, platforms)
     game.physics.arcade.collide(stars, platforms)
 
@@ -95,7 +79,7 @@ const onStart = () => {
     collectStarSound.play()
     star.kill()
     score += 10
-    scoreText.text = 'Score: ' + score
+    scoreText.text = `Score: ${score}`
   }
 
   const game = new Phaser.Game(800, 600, Phaser.AUTO, 'main', {

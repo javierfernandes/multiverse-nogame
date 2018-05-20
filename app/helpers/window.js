@@ -8,7 +8,7 @@ import jetpack from 'fs-jetpack'
 
 export default function (name, options) {
   var userDataDir = jetpack.cwd(app.getPath('userData'))
-  var stateStoreFile = 'window-state-' + name + '.json'
+  var stateStoreFile = `window-state-${name}.json`
   var defaultSize = {
     width: options.width,
     height: options.height
@@ -54,7 +54,7 @@ export default function (name, options) {
   }
 
   var ensureVisibleOnSomeDisplay = function (windowState) {
-    var visible = screen.getAllDisplays().some(function (display) {
+    var visible = screen.getAllDisplays().some((display) => {
       return windowWithinBounds(windowState, display.bounds)
     })
     if (!visible) {

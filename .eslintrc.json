@@ -15,7 +15,9 @@
     "eol-last": "off",
     "no-multiple-empty-lines": "warn",
 
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "prefer-arrow-callback": "warn",
+    "prefer-template": "warn"
   },
   "globals": {
     "Phaser": true

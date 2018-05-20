@@ -4,8 +4,8 @@
 import { expect } from 'chai'
 import env from '../env'
 
-describe('boilerplate tests', function () {
-  it('environment variables should be on their place', function () {
+describe('boilerplate tests', () => {
+  it('environment variables should be on their place', () => {
     expect(env.name).to.equal('test')
     expect(env.description).to.equal('Add here any environment specific stuff you like.')
   })
