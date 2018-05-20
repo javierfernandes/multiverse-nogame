@@ -1,63 +1,34 @@
-import { values, applyTo } from 'ramda'
+import { values, applyTo, apply, flip } from 'ramda'
 import { Image } from './src/constants'
 import * as preloads from './src/preload/preload'
 import * as creators from './src/create/create'
+import * as updates from './src/update/update'
+
+const flippedApply = flip(apply)
 
 const onStart = () => {
-  // global state
-  var cursors
-
-  var score = 0
-  var scoreText
+  let parts = {}
+  const state = {
+    score: 0
+  }
+  const getParts = () => parts
+  const getState = () => state
 
   const preload = () => { values(preloads).forEach(applyTo(game)) }
+  const update = () => { values(updates).forEach(flippedApply([parts, game])) }
 
-  let parts = {}
-
-  function create () {
+  const create = () => {
     game.physics.startSystem(Phaser.Physics.ARCADE)
 
     game.add.sprite(0, 0, Image.sky)
 
-    parts = values(creators).reduce((acc, creator) => Object.assign(acc, creator(game)), parts)
+    parts = values(creators).reduce((acc, creator) =>
+      Object.assign(acc, creator(game, getParts, getState)),
+    parts)
 
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' })
-
-    cursors = game.input.keyboard.createCursorKeys()
-  }
-
-  function update () {
-    const { player, platforms, jumpSound, stars } = parts
-    game.physics.arcade.collide(player, platforms)
-    game.physics.arcade.collide(stars, platforms)
-
-    game.physics.arcade.overlap(player, stars, collectStar, null, this)
-
-    player.body.velocity.x = 0
-
-    if (cursors.left.isDown) {
-      player.body.velocity.x = -150
-      player.animations.play('left')
-    } else if (cursors.right.isDown) {
-      player.body.velocity.x = 150
-      player.animations.play('right')
-    } else {
-      player.animations.stop()
-      player.frame = 4
-    }
-
-    if (cursors.up.isDown && player.body.touching.down) {
-      jumpSound.play()
-      player.body.velocity.y = -350
-    }
-  }
-
-  const collectStar = (player, star) => {
-    const { collectStarSound } = parts
-    collectStarSound.play()
-    star.kill()
-    score += 10
-    scoreText.text = `Score: ${score}`
+    // TODO: migrate to creators
+    parts.scoreText = game.add.text(16, 16, `Score: ${state.score}`, { fontSize: '32px', fill: '#000' })
+    parts.cursors = game.input.keyboard.createCursorKeys()
   }
 
   const game = new Phaser.Game(800, 600, Phaser.AUTO, 'main', {
