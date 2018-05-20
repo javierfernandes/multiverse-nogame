@@ -21,11 +21,11 @@ app.on('ready', () => {
     height: 600
   })
 
-  mainWindow.loadURL('file://' + __dirname + '/app.html')
+  mainWindow.loadURL(`file://${__dirname}/app.html`)
 
   if (env.name !== 'production') {
     mainWindow.openDevTools()
   }
 })
 
-app.on('window-all-closed', () => {  app.quit() })
+app.on('window-all-closed', () => { app.quit() })

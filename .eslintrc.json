@@ -5,6 +5,15 @@
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "indent": "warn",
+    "padded-blocks": "warn",
+    "no-trailing-spaces": "warn"
+  },
+  "globals": {
+    "Phaser": true
   }
 }
