@@ -11,7 +11,8 @@
   "rules": {
     "indent": "warn",
     "padded-blocks": "warn",
-    "no-trailing-spaces": "warn"
+    "no-trailing-spaces": "warn",
+    "no-unused-vars": "warn"
   },
   "globals": {
     "Phaser": true

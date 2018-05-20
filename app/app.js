@@ -1,13 +1,7 @@
 import { range } from 'ramda'
 
 const onStart = () => {
-  const preload = () => {
-    game.load.image('sky', 'assets/sky.png')
-    game.load.image('ground', 'assets/platform.png')
-    game.load.image('star', 'assets/star.png')
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48)
-  }
-
+  // global state
   var player
   var platforms
   var cursors
@@ -15,6 +9,22 @@ const onStart = () => {
   var stars
   var score = 0
   var scoreText
+
+  let backgroundSound
+  let jumpSound
+  let collectStarSound
+
+  const preload = () => {
+    game.load.image('sky', 'assets/sky.png')
+    game.load.image('ground', 'assets/platform.png')
+    game.load.image('star', 'assets/star.png')
+    game.load.spritesheet('dude', 'assets/dude.png', 32, 48)
+
+    // audio
+    game.load.audio('background', ['assets/audio/background.wav'])
+    game.load.audio('jump', ['assets/audio/jump.wav'])
+    game.load.audio('collectStar', ['assets/audio/collect-star.wav'])
+  }
 
   function create () {
     game.physics.startSystem(Phaser.Physics.ARCADE)
@@ -55,6 +65,12 @@ const onStart = () => {
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' })
 
     cursors = game.input.keyboard.createCursorKeys()
+
+    backgroundSound = game.add.audio('background', 0.5, true)
+    backgroundSound.play()
+
+    jumpSound = game.add.audio('jump')
+    collectStarSound = game.add.audio('collectStar')
   }
 
   function update () {
@@ -77,11 +93,13 @@ const onStart = () => {
     }
 
     if (cursors.up.isDown && player.body.touching.down) {
+      jumpSound.play()
       player.body.velocity.y = -350
     }
   }
 
   const collectStar = (player, star) => {
+    collectStarSound.play()
     star.kill()
     score += 10
     scoreText.text = 'Score: ' + score
