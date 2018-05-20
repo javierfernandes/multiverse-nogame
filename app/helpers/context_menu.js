@@ -4,56 +4,41 @@
 (function () {
     'use strict';
 
-    var remote = require('electron').remote;
-    var Menu = remote.Menu;
-    var MenuItem = remote.MenuItem;
+    const { remote } = require('electron')
+    const { Menu, MenuItem } = remote.Menu
 
-    var isAnyTextSelected = function () {
-        return window.getSelection().toString() !== '';
-    };
+    const isAnyTextSelected = () => window.getSelection().toString() !== ''
 
-    var cut = new MenuItem({
-        label: "Cut",
-        click: function () {
-            document.execCommand("cut");
-        }
-    });
+    const commandMenuItem = (label, command) => new MenuItem({
+      label,
+      click: () => { document.execCommand(command) }
+    })
 
-    var copy = new MenuItem({
-        label: "Copy",
-        click: function () {
-            document.execCommand("copy");
-        }
-    });
+    const cut = commandMenuItem('Cut', 'cut')
+    const cut = commandMenuItem('Copy', 'copy')
+    const cut = commandMenuItem('Paste', 'paste')
 
-    var paste = new MenuItem({
-        label: "Paste",
-        click: function () {
-            document.execCommand("paste");
-        }
-    });
+    const normalMenu = new Menu()
+    normalMenu.append(copy)
 
-    var normalMenu = new Menu();
-    normalMenu.append(copy);
+    const textEditingMenu = new Menu()
+    textEditingMenu.append(cut)
+    textEditingMenu.append(copy)
+    textEditingMenu.append(paste)
 
-    var textEditingMenu = new Menu();
-    textEditingMenu.append(cut);
-    textEditingMenu.append(copy);
-    textEditingMenu.append(paste);
+    document.addEventListener('contextmenu', e => {
+      switch (e.target.nodeName) {
+        case 'TEXTAREA':
+        case 'INPUT':
+          e.preventDefault()
+          textEditingMenu.popup(remote.getCurrentWindow())
+          break
+        default:
+          if (isAnyTextSelected()) {
+            e.preventDefault()
+            normalMenu.popup(remote.getCurrentWindow())
+          }
+      }
+    }, false)
 
-    document.addEventListener('contextmenu', function (e) {
-        switch (e.target.nodeName) {
-            case 'TEXTAREA':
-            case 'INPUT':
-                e.preventDefault();
-                textEditingMenu.popup(remote.getCurrentWindow());
-                break;
-            default:
-                if (isAnyTextSelected()) {
-                    e.preventDefault();
-                    normalMenu.popup(remote.getCurrentWindow());
-                }
-        }
-    }, false);
-
-}());
+}())

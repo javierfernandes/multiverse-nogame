@@ -16,29 +16,29 @@
 (function () {
     'use strict';
 
-    var shell = require('electron').shell;
+    var shell = require('electron').shell
 
     var supportExternalLinks = function (e) {
         var href;
-        var isExternal = false;
+        var isExternal = false
 
         var checkDomElement = function (element) {
             if (element.nodeName === 'A') {
-                href = element.getAttribute('href');
+                href = element.getAttribute('href')
             }
             if (element.classList.contains('js-external-link')) {
-                isExternal = true;
+                isExternal = true
             }
             if (href && isExternal) {
-                shell.openExternal(href);
-                e.preventDefault();
+                shell.openExternal(href)
+                e.preventDefault()
             } else if (element.parentElement) {
-                checkDomElement(element.parentElement);
+                checkDomElement(element.parentElement)
             }
-        };
+        }
 
-        checkDomElement(e.target);
-    };
+        checkDomElement(e.target)
+    }
 
-    document.addEventListener('click', supportExternalLinks, false);
-}());
+    document.addEventListener('click', supportExternalLinks, false)
+}())
