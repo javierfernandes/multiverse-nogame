@@ -1,4 +1,5 @@
-import { range } from 'ramda'
+import { range, values, applyTo } from 'ramda'
+import * as preloads from './src/preload/preload'
 
 const onStart = () => {
   // global state
@@ -15,15 +16,7 @@ const onStart = () => {
   let collectStarSound
 
   const preload = () => {
-    game.load.image('sky', 'assets/sky.png')
-    game.load.image('ground', 'assets/platform.png')
-    game.load.image('star', 'assets/star.png')
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48)
-
-    // audio
-    game.load.audio('background', ['assets/audio/background.wav'])
-    game.load.audio('jump', ['assets/audio/jump.wav'])
-    game.load.audio('collectStar', ['assets/audio/collect-star.wav'])
+    values(preloads).forEach(applyTo(game))
   }
 
   function create () {

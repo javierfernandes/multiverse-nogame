@@ -12,6 +12,9 @@
     "indent": "warn",
     "padded-blocks": "warn",
     "no-trailing-spaces": "warn",
+    "eol-last": "off",
+    "no-multiple-empty-lines": "warn",
+
     "no-unused-vars": "warn"
   },
   "globals": {
