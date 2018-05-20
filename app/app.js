@@ -1,4 +1,5 @@
 import { range, values, applyTo } from 'ramda'
+import { Image, Audio } from './src/constants'
 import * as preloads from './src/preload/preload'
 
 const onStart = () => {
@@ -22,21 +23,21 @@ const onStart = () => {
   function create () {
     game.physics.startSystem(Phaser.Physics.ARCADE)
 
-    game.add.sprite(0, 0, 'sky')
+    game.add.sprite(0, 0, Image.sky)
 
     platforms = game.add.group()
     platforms.enableBody = true
 
-    const ground = platforms.create(0, game.world.height - 64, 'ground')
+    const ground = platforms.create(0, game.world.height - 64, Image.ground)
     ground.scale.setTo(2, 2)
     ground.body.immovable = true
 
-    const ledge1 = platforms.create(400, 400, 'ground')
+    const ledge1 = platforms.create(400, 400, Image.ground)
     ledge1.body.immovable = true
-    const ledge2 = platforms.create(-150, 250, 'ground')
+    const ledge2 = platforms.create(-150, 250, Image.ground)
     ledge2.body.immovable = true
 
-    player = game.add.sprite(32, game.world.height - 150, 'dude')
+    player = game.add.sprite(32, game.world.height - 150, Image.dude)
     game.physics.arcade.enable(player)
     player.body.bounce.y = 0.2
     player.body.gravity.y = 300
@@ -50,7 +51,7 @@ const onStart = () => {
 
     //  Here we'll create 12 of them evenly spaced apart
     range(0, 12).forEach(i => {
-      const star = stars.create(i * 70, 0, 'star')
+      const star = stars.create(i * 70, 0, Image.star)
       star.body.gravity.y = 300
       star.body.bounce.y = 0.7 + Math.random() * 0.2
     })
@@ -59,11 +60,11 @@ const onStart = () => {
 
     cursors = game.input.keyboard.createCursorKeys()
 
-    backgroundSound = game.add.audio('background', 0.5, true)
+    backgroundSound = game.add.audio(Audio.background, 0.5, true)
     backgroundSound.play()
 
-    jumpSound = game.add.audio('jump')
-    collectStarSound = game.add.audio('collectStar')
+    jumpSound = game.add.audio(Audio.jump)
+    collectStarSound = game.add.audio(Audio.collectStar)
   }
 
   function update () {
