@@ -1,8 +1,8 @@
+import { values } from 'ramda'
 
-export * from './events'
+import * as creators from './all'
 
-export * from './platforms'
-export * from './player'
-export * from './stars'
-
-export * from './audio'
+export default (game, getParts, getState) => values(creators)
+  .reduce((acc, creator) =>
+    Object.assign(acc, creator(game, getParts, getState)),
+  {})
