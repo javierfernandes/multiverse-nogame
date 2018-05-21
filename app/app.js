@@ -20,8 +20,6 @@ const onStart = () => {
       game.add.sprite(0, 0, Image.sky)
 
       parts = create(game, getParts, getState)
-      // TODO: migrate to creators
-      parts.scoreText = game.add.text(16, 16, `Score: ${state.score}`, { fontSize: '32px', fill: '#000' })
     },
     update: () => { update(parts, game) }
   })

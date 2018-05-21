@@ -1,12 +1,20 @@
 import Player from '../components/Player'
+import Score from '../components/Score'
 
-export const components = game => {
-  const p = new Player()
+const classes = [
+  Player,
+  Score
+]
+
+export const components = (game, getParts, getState) => ({
+  components: classes.map(instantiate(game, getState))
+})
+
+const instantiate = (game, getState) => Component => {
+  const p = new Component()
   p.game = game
-  p.events = {}
+  p.getState = getState
   const f = p.create()
   p.figure = f
-  return {
-    components: [p]
-  }
+  return p
 }

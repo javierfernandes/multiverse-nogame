@@ -14,5 +14,4 @@ export const starCollected = (getParts, getState) => (player, star) => {
   // TODO: design an immutable solution
   state.score += 10
   state.collectedStars += 1
-  scoreText.text = `Score: ${state.score}`
 }
