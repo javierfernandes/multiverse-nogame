@@ -6,7 +6,7 @@ export const Position = {
   LEFT: 'left',
   RIGHT: 'right'
 }
-const SIZE = 64
+export const SIZE = 64
 const HALF_SIZE = SIZE / 2
 const MARGIN = SIZE * 1.5
 
@@ -59,7 +59,11 @@ export default class Tank {
     return p
   }
 
-  update({ stars, platforms, events }) {
+  update({ components, events }) {
+    const bullets = components.find(c => c.type === 'bullets')
+    this.game.physics.arcade.overlap(this.figure, bullets.figure, events.tankDestroyed, null, this)
+
+    // movement
     this.figure.body.velocity.x = 0
     this.figure.body.velocity.y = 0
 

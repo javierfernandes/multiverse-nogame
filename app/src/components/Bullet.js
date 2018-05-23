@@ -1,4 +1,4 @@
-import { Position } from './Tank'
+import { Position, SIZE } from './Tank'
 
 Phaser.Group.prototype.setAll = function (key, value, checkAlive, checkVisible, operation, force) {
   if (checkAlive === undefined) { checkAlive = false }
@@ -16,6 +16,9 @@ Phaser.Group.prototype.setAll = function (key, value, checkAlive, checkVisible, 
 }
 
 export default class Bullet {
+  constructor() {
+    this.type = 'bullets'
+  }
   create() {
     const lasers = this.game.add.group()
     lasers.enableBody = true
@@ -66,19 +69,28 @@ export default class Bullet {
   }
 
   fireLaser(components) {
-    components.filter(c => c.id === 'tank')
-      .forEach((c) => {
-        const { figure: tank } = c
-        const laser = this.figure.getFirstExists(false)
-        if (laser) {
-          const [dx, dy] = OffSets[c.position](tank, laser)
-          const [vx, vy] = Velocities[c.position]
-          laser.reset(dx, dy)
+    const { firingTank } = this.getState()
 
-          laser.body.velocity.x = vx
-          laser.body.velocity.y = vy
-        }
-      })
+    // bullets from all tanks
+    // components.filter(c => c.id === 'tank').forEach(this.fireTank)
+
+    const tank = components.find(c => c.id === 'tank' && c.position === firingTank)
+    this.fireTank(tank)
+  }
+
+  fireTank(c) {
+    const { figure: tank } = c
+    const laser = this.figure.getFirstExists(false)
+    if (laser) {
+      const [dx, dy] = OffSets[c.position](tank, laser)
+      const [vx, vy] = Velocities[c.position]
+      laser.reset(dx, dy)
+
+      laser.body.velocity.x = vx
+      laser.body.velocity.y = vy
+
+      this.getParts().events.tankFired(c, laser)
+    }
   }
 
 }
@@ -91,10 +103,12 @@ const Velocities = {
   [Position.RIGHT]: [-(VELOCITY * 1 + (600 / 800)), 0]
 }
 
+// const OFFSET = (SIZE / 2) * 1.1
+const OFFSET = SIZE
 const OffSets = {
-  [Position.BOTTOM]: (tank, laser) => [tank.x - (laser.width / 2), tank.y - (tank.height / 2)],
-  [Position.TOP]: (tank, laser) => [tank.x - (laser.width / 2), tank.y + (tank.height / 2)],
-  
-  [Position.LEFT]: (tank, laser) => [tank.x + (laser.width / 2), tank.y - (laser.width / 2)],
-  [Position.RIGHT]: (tank, laser) => [tank.x - (laser.width / 2), tank.y - (laser.width / 2)]
+  [Position.BOTTOM]: (tank, laser) => [tank.x - (laser.width / 2), tank.y - OFFSET],
+  [Position.TOP]: (tank, laser) => [tank.x - (laser.width / 2), tank.y + OFFSET],
+
+  [Position.LEFT]: (tank, laser) => [tank.x + OFFSET, tank.y - (laser.width / 2)],
+  [Position.RIGHT]: (tank, laser) => [tank.x - OFFSET, tank.y - (laser.width / 2)]
 }

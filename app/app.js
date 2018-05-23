@@ -4,9 +4,12 @@ import * as preloads from './src/preload/preload'
 import create from './src/create/create'
 import update from './src/update/update'
 
+import { Position } from './src/components/Tank'
+
 const onStart = () => {
   let parts = {}
   const state = {
+    firingTank: Position.BOTTOM,
     score: 0,
     collectedStars: 0
   }
