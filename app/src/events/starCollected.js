@@ -1,13 +1,9 @@
 
 export const starCollected = (getParts, getState) => (player, star) => {
-  const { collectStarSound, stageClearSound } = getParts()
-  const state = getState()
+  const { sounds: { collectStar, stageClear } } = getParts()
+  const state = getState();
 
-  if (state.collectedStars === 11) {
-    stageClearSound.play()
-  } else {
-    collectStarSound.play()
-  }
+  (state.collectedStars === 11 ? stageClear : collectStar).play()
 
   star.kill()
 

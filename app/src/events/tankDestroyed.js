@@ -1,8 +1,8 @@
 
 export const tankDestroyed = (getParts, getState) => (tank, bullet) => {
-  const { collectStarSound } = getParts()
+  const { sounds: { tankDestroyed } } = getParts()
 
-  collectStarSound.play()
+  tankDestroyed.play()
 
   tank.kill()
   bullet.kill()

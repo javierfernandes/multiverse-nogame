@@ -2,8 +2,8 @@ import { Position } from '../components/Tank'
 
 export const tankFired = (getParts, getState) => (tank, bullet) => {
   // play sound
-  const { collectStarSound } = getParts()
-  collectStarSound.play()
+  const { sounds: { collectStar } } = getParts()
+  collectStar.play()
 
   // mutate state
   const state = getState()

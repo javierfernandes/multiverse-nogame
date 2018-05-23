@@ -1,5 +1,5 @@
 
 export const playerJumps = (getParts, getState) => () => {
-  const { jumpSound } = getParts()
-  jumpSound.play()
+  const { sounds: { jump } } = getParts()
+  jump.play()
 }

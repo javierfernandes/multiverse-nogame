@@ -3,7 +3,10 @@ export const Audio = {
   background: 'background',
   jump: 'jump',
   collectStar: 'collectStar',
-  stageClear: 'stageClear'
+  stageClear: 'stageClear',
+
+  // tanks
+  tankDestroyed: 'tankDestroyed'
 }
 
 export const Image = {
