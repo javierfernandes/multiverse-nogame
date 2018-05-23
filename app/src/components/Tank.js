@@ -14,6 +14,8 @@ export default class Tank {
   constructor(position) {
     this.id = 'tank'
     this.position = position
+
+    this.tankDestroyed = Object.bind(this, this.tankDestroyed)
   }
 
   getInitialPosition() {
@@ -58,10 +60,15 @@ export default class Tank {
 
     return p
   }
+  
+  destroyed(figure, bullet) {
+    const { events } = this.getParts()
+    events.tankDestroyed(this, bullet)
+  }
 
   update({ components, events }) {
     const bullets = components.find(c => c.type === 'bullets')
-    this.game.physics.arcade.overlap(this.figure, bullets.figure, events.tankDestroyed, null, this)
+    this.game.physics.arcade.overlap(this.figure, bullets.figure, this.destroyed, null, this)
 
     // movement
     this.figure.body.velocity.x = 0

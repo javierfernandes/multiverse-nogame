@@ -1,4 +1,3 @@
-import { Position } from '../components/Tank'
 
 export const tankFired = (getParts, getState) => (tank, bullet) => {
   // play sound
@@ -7,12 +6,11 @@ export const tankFired = (getParts, getState) => (tank, bullet) => {
 
   // mutate state
   const state = getState()
-  state.firingTank = nextPosition[tank.position]
+  state.firingTank = nextTank(state.tanks, tank.position)
 }
 
-const nextPosition = {
-  [Position.BOTTOM]: Position.LEFT,
-  [Position.TOP]: Position.RIGHT,
-  [Position.LEFT]: Position.TOP,
-  [Position.RIGHT]: Position.BOTTOM
+const nextTank = (tanks, current) => {
+  const i = tanks.indexOf(current)
+  const nextI = (i + 1) % tanks.length
+  return tanks[nextI]
 }

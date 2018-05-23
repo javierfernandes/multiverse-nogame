@@ -9,6 +9,8 @@ import { Position } from './src/components/Tank'
 const onStart = () => {
   let parts = {}
   const state = {
+    // order matters: determins the fire roundrobin
+    tanks: [Position.BOTTOM, Position.LEFT, Position.TOP, Position.RIGHT],
     firingTank: Position.BOTTOM,
     score: 0,
     collectedStars: 0
