@@ -8,6 +8,7 @@ export const Position = {
 }
 const SIZE = 64
 const HALF_SIZE = SIZE / 2
+const MARGIN = SIZE * 1.5
 
 export default class Tank {
   constructor(position) {
@@ -59,15 +60,37 @@ export default class Tank {
   }
 
   update({ stars, platforms, events }) {
-    const { width: worldWidth } = this.game.world
-    const { x, width } = this.figure
-
     this.figure.body.velocity.x = 0
+    this.figure.body.velocity.y = 0
 
-    if (this.cursors.left.isDown && x > 0) {
+    if (this.position === Position.TOP || this.position === Position.BOTTOM) {
+      this.updateHorizontal()
+    } else {
+      this.updateVertical()
+    }
+  }
+
+  updateHorizontal() {
+    const { width: worldWidth } = this.game.world
+    const { x } = this.figure
+
+    if (this.cursors.left.isDown && x > MARGIN) {
       this.figure.body.velocity.x = -150
-    } else if (this.cursors.right.isDown && (x + width) < worldWidth) {
+    } else if (this.cursors.right.isDown && (x + MARGIN) < worldWidth) {
       this.figure.body.velocity.x = 150
+    } else {
+      this.figure.frame = 0
+    }
+  }
+
+  updateVertical() {
+    const { height: worldHeight } = this.game.world
+    const { y } = this.figure
+
+    if (this.cursors.up.isDown && y > MARGIN) {
+      this.figure.body.velocity.y = -150
+    } else if (this.cursors.down.isDown && (y + MARGIN) < worldHeight) {
+      this.figure.body.velocity.y = 150
     } else {
       this.figure.frame = 0
     }
