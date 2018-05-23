@@ -1,17 +1,22 @@
-import Player from '../components/Player'
 import Score from '../components/Score'
-
-const classes = [
-  Player,
-  Score
-]
+import Tank, { Position } from '../components/Tank'
+import Bullet from '../components/Bullet'
+import Borders from '../components/Borders'
 
 export const components = (game, getParts, getState) => ({
-  components: classes.map(instantiate(game, getState))
+  components: [
+    instantiate(game, getState)(Borders),
+    instantiate(game, getState)(Score),
+    instantiate(game, getState)(Tank, Position.BOTTOM),
+    instantiate(game, getState)(Tank, Position.RIGHT),
+    instantiate(game, getState)(Tank, Position.LEFT),
+    instantiate(game, getState)(Tank, Position.TOP),
+    instantiate(game, getState)(Bullet)
+  ]
 })
 
-const instantiate = (game, getState) => Component => {
-  const p = new Component()
+const instantiate = (game, getState) => (Component, ...args) => {
+  const p = new Component(...args)
   p.game = game
   p.getState = getState
   const f = p.create()

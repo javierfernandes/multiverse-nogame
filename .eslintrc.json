@@ -10,7 +10,7 @@
   },
   "rules": {
     "indent": "warn",
-    "padded-blocks": "warn",
+    "padded-blocks": "off",
     "no-trailing-spaces": "warn",
     "eol-last": "off",
     "no-multiple-empty-lines": "warn",

@@ -13,6 +13,9 @@ export const Image = {
   dude: 'dude',
   ledge: 'ledge',
 
+  tank: 'tank',
+  bullet: 'bullet',
+
   //
   eskimo: 'eskimo'
 }
