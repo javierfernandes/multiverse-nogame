@@ -10,14 +10,15 @@
   },
   "rules": {
     "indent": "warn",
-    "padded-blocks": "warn",
+    "padded-blocks": "off",
     "no-trailing-spaces": "warn",
     "eol-last": "off",
     "no-multiple-empty-lines": "warn",
 
     "no-unused-vars": "warn",
     "prefer-arrow-callback": "warn",
-    "prefer-template": "warn"
+    "prefer-template": "warn",
+    "space-before-function-paren": "off"
   },
   "globals": {
     "Phaser": true

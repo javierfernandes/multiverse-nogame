@@ -1,5 +1,8 @@
-// order matters, of course
+import { values, apply, flip } from 'ramda'
+import * as updates from './all'
 
-export * from './collisions'
-export * from './keyboard'
-export * from './moveLedges'
+const flippedApply = flip(apply)
+
+export default (parts, game) => {
+  values(updates).forEach(flippedApply([parts, game]))
+}
