@@ -2,4 +2,3 @@
 
 // export * from './collisions'
 export * from './components'
-// export * from './moveLedges'

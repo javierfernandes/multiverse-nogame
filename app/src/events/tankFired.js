@@ -1,8 +1,8 @@
 
 export const tankFired = (getParts, getState) => (tank, bullet) => {
   // play sound
-  const { sounds: { collectStar } } = getParts()
-  collectStar.play()
+  const { sounds: { bulletFired } } = getParts()
+  bulletFired.play()
 
   // mutate state
   const state = getState()

@@ -7,7 +7,7 @@ export default class Borders {
     p.enableBody = true
 
     const create = (x, y) => {
-      const block = p.create(x, y, Image.ground)
+      const block = p.create(x, y, Image.border)
       block.scale.setTo(2, 2)
       block.body.immovable = true
       return block
